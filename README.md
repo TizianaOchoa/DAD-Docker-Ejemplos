@@ -341,7 +341,7 @@ docker ps
 
 ### Captura 6 - Contenedores en ejecución
 
-![Contenedores activos](Capturas-ejem03/docker-ps.jpg)
+![Contenedores activos](Capturas-ejem03/dockerps.jpg)
 
 ---
 
@@ -358,6 +358,7 @@ http://localhost:8082
 ### Captura 7 - WordPress funcionando
 
 ![WordPress funcionando](Capturas-ejem03/wordpress-web.jpg)
+![WordPress funcionando](Capturas-ejem03/wordpress-web-2.jpg)
 
 ---
 
