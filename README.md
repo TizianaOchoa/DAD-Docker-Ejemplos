@@ -378,3 +378,116 @@ Los scripts de sistema operativo permiten automatizar tareas repetitivas y simpl
 
 Los scripts de automatización son herramientas muy útiles para agilizar despliegues y configuraciones. No obstante, su portabilidad puede verse afectada cuando dependen de características específicas del sistema operativo. Durante esta práctica fue necesario adaptar algunos comandos al entorno Windows y verificar manualmente la configuración de red y contenedores para lograr un despliegue exitoso.
 
+---
+### Fecha: 05/05/2026
+
+---
+# Ejemplo 07
+
+## Objetivo
+
+Implementar un entorno LEMP (Linux, Nginx, MariaDB y PHP) utilizando Docker Compose, verificando el funcionamiento de los servicios y el acceso a la aplicación desde el navegador.
+
+---
+
+## Servicios desplegados
+
+Se levantaron los siguientes contenedores:
+
+* Nginx
+* PHP 7
+* MariaDB
+* phpMyAdmin
+
+La implementación se realizó mediante Docker Compose utilizando la configuración proporcionada en el ejemplo.
+
+---
+
+## Puertos utilizados
+
+| Servicio                     | Puerto |
+| ---------------------------- | ------ |
+| Aplicación Web (Nginx + PHP) | 8080   |
+| phpMyAdmin                   | 8081   |
+
+---
+
+## Implementación
+
+Para desplegar los servicios se ejecutó el siguiente comando desde la carpeta `docker`:
+
+```bash
+docker compose up -d --build
+```
+
+Posteriormente se verificó el estado de los contenedores mediante:
+
+```bash
+docker ps
+```
+
+---
+
+## Evidencias
+
+### Aplicación Web (Puerto 8080)
+
+Se verificó el acceso a la aplicación mediante:
+
+```text
+http://localhost:8080
+```
+
+![Aplicación ejecutándose](Capturas-ejem07/localhost8080.png)
+
+### phpMyAdmin (Puerto 8081)
+
+Se verificó el acceso a phpMyAdmin mediante:
+
+```text
+http://localhost:8081
+```
+
+![phpMyAdmin](Capturas-ejem07/localhost8081.png)
+
+### Contenedores desplegados
+
+Verificación de los servicios en ejecución:
+
+![Docker PS](Capturas-ejem07/docker-ps.png)
+
+---
+
+## Observación sobre el puerto 8080
+
+Al acceder a la aplicación mediante `http://localhost:8080`, el servidor web y PHP funcionaron correctamente, ejecutando el archivo `index.php`.
+
+Sin embargo, se presentó el siguiente error:
+
+```text
+SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo failed:
+Temporary failure in name resolution
+```
+
+Este error indica que la aplicación no pudo resolver el nombre del host `mariadb` utilizado para conectarse a la base de datos. Es decir, la aplicación web se ejecutó correctamente, pero la conexión con la base de datos no pudo completarse debido a un problema de resolución de nombres dentro de la red Docker.
+
+A pesar de este inconveniente, se verificó correctamente:
+
+* El funcionamiento de Docker Compose.
+* La ejecución de Nginx.
+* La ejecución de PHP.
+* El montaje de volúmenes.
+* La publicación de puertos.
+* El acceso a la aplicación desde el navegador.
+* El acceso a phpMyAdmin.
+
+Por lo tanto, la implementación y despliegue del entorno LEMP se realizaron satisfactoriamente.
+
+---
+
+## Conclusión
+
+Se implementó exitosamente el entorno LEMP utilizando Docker Compose. Los servicios fueron desplegados y se verificó el acceso a la aplicación web y a phpMyAdmin. El único inconveniente detectado fue la resolución del nombre del servicio de base de datos, lo que impidió completar la conexión desde la aplicación PHP hacia MariaDB.
+
+
+
